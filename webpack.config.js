@@ -1,10 +1,10 @@
-var WEBPACK = require('webpack'),  
+var WEBPACK = require('webpack'),
 	PATH = require('path'),
 	MERGE = require('webpack-merge'),
 	HTML_WEBPACK_PLUGIN= require('html-webpack-plugin'),
 	CLEAN = require('clean-webpack-plugin');
 	COPY_PLUGIN = require('copy-webpack-plugin');
-	
+
 var isProduction = process.env.NODE_ENV === 'production' ? true : false;
 var appPlugins = { plugins : [] };
 
@@ -45,19 +45,23 @@ var modules = {
 				exclude: /node_modules|bower_components/
 			},
 		  {
-			/**
-			*	npm install file-loader --save-dev
-			*	the image ./src/img.jpg will be copy and renamed as 
-			*	such: dist/img/img-a4bd04.jpg
-			*/
-			test: /\.(png|jpg|gif)$/,
-			loader: "file-loader?name=img/img-[hash:6].[ext]"
+				/**
+				*	npm install file-loader --save-dev
+				*	the image ./src/img.jpg will be copy and renamed as
+				*	such: dist/img/img-a4bd04.jpg
+				*/
+				test: /\.(png|jpg|gif)$/,
+				loader: "file-loader?name=img/img-[hash:6].[ext]"
 		  },
 		  {
-			test: /\.(ico)$/,
-			exclude: /node_modules/,
-			loader:'file-loader?name=[name].[ext]&context=./'
-		  }
+				test: /\.(ico)$/,
+				exclude: /node_modules/,
+				loader:'file-loader?name=[name].[ext]&context=./'
+		  },
+			{
+				test: /\.html$/,
+        loader: "html-loader"
+			}
 		]
 	}
 };
@@ -69,7 +73,7 @@ if(isProduction){
       inject: true
     },
 	jsUglifier = {compress: {warnings: false}};
-	
+
 	// Cleaning production folder Don't write logs to console
 	appPlugins.plugins.push(new CLEAN([paths.production], {verbose: false }));
 	appPlugins.plugins.push(new HTML_WEBPACK_PLUGIN(templateObject));
