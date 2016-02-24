@@ -86,6 +86,11 @@ if(isProduction){
 			inject: 'body' // Inject all scripts into the body
 		}
 	));
+
+	//To support individual reload except home
+	common.devServer = {
+    historyApiFallback: true
+	}
 }
 appPlugins.plugins.push(new WEBPACK.optimize.CommonsChunkPlugin({
         names: ['vendor', 'manifest']
