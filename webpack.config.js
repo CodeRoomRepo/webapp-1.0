@@ -21,6 +21,9 @@ var common = {
 	output : {
 		path: isProduction ? PATH.join(paths.production) : PATH.join(paths.development),
 		filename : isProduction ? '[name].[chunkhash].js' : '[name].[hash].js'
+	},
+	resolve : {
+		root : [paths.development]
 	}
 };
 
